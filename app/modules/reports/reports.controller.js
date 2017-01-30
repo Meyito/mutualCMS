@@ -37,10 +37,10 @@
 
             filter.value = filter.group = filter.selectedOperator = undefined;
 
-            if (filter.selectedField
-                && filter.selectedField.type.name === "reference"
-                && filter.selectedField.type.operators.length
-                && !filter.selectedField.references) {
+            if (filter.selectedField &&
+                filter.selectedField.type.name === "reference" &&
+                filter.selectedField.type.operators.length &&
+                !filter.selectedField.references) {
                 blockedItem.start();
                 $http({
                     method: "GET",
@@ -87,7 +87,7 @@
                     operator: filter.selectedOperator,
                     value: filter.selectedField.type.name == "date" ? new Date(filter.value) : filter.value,
                     group: filter.group
-                }
+                };
             });
         }
 
