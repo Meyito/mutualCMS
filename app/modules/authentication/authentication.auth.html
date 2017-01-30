@@ -1,0 +1,57 @@
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="javascript:;"><img src="assets/images/mutual-logo.png" title="Mutual logo"> </a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body" block-ui="blockUI">
+        <p class="login-box-msg">Iniciar Sesión</p>
+
+        <form name="formAuthenticateUser" novalidate ng-submit="formAuthenticateUser.$valid && auth.authenticate(formAuthenticateUser)">
+            <div class="form-group has-feedback"
+                 ng-class="{'has-error': (formAuthenticateUser.username.$invalid && formAuthenticateUser.username.$dirty)}">
+                <input type="text"
+                       name="username"
+                       required
+                       ng-model="auth.credentials.username"
+                       class="form-control"
+                       placeholder="Nombre de Usuario">
+                <span class="fa fa-user form-control-feedback"></span>
+                <span class="help-block"
+                      ng-messages="formAuthenticateUser.username.$error"
+                      ng-show="formAuthenticateUser.username.$dirty">
+                    <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                </span>
+            </div>
+            <div class="form-group has-feedback"
+                 ng-class="{'has-error': (formAuthenticateUser.password.$invalid && formAuthenticateUser.password.$dirty)}">
+                <input type="password"
+                       name="password"
+                       required
+                       ng-model="auth.credentials.password"
+                       class="form-control"
+                       placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <span class="help-block"
+                      ng-messages="formAuthenticateUser.password.$error"
+                      ng-show="formAuthenticateUser.password.$dirty">
+                                <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                        </span>
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-xs-offset-8 col-xs-4">
+                    <button type="submit"
+                            ng-disabled="formAuthenticateUser.$invalid"
+                            class="btn btn-primary btn-block btn-flat">Ingresar
+                    </button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        <!--<a href="javascript:;">Olvidé mi contraseña</a><br>-->
+
+    </div>
+    <!-- /.login-box-body -->
+</div>

@@ -1,0 +1,200 @@
+<section class="content-header" push-menu>
+    <h1>
+        {{::addUser.main}}
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home.dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><a ui-sref="home.users"><i class="fa fa-users"></i> Usuarios</a></li>
+        <li><i class="fa" ng-class="::addUser.icon"></i> {{::addUser.title}}</li>
+    </ol>
+</section>
+
+<section class="content" block-ui="blockUI">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{::addUser.content}}</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <p>Los campos marcados con (<span class="required">*</span>) son requeridos.</p>
+                        <uib-alert class="row bootstrap-notification login-errors" type="danger"
+                                   ng-if="addUser.showErrors" close="addUser.showErrors = false">
+                            <strong class="col-md-10">Se encontraron los siguientes errores:</strong>
+
+                            <span class="col-md-6 col-xs-12" ng-repeat="(field, errors) in addUser.errors">
+                                <p ng-repeat="error in errors">
+                                    <i class="fa fa-times-circle"></i> {{error}}
+                                </p>
+                            </span>
+                        </uib-alert>
+                        <form name="formAddUser" block-ui="blockUI" novalidate class="with-password-strength"
+                              ng-submit="formAddUser.$valid && addUser.save()">
+                            <div class="row">
+                                <div class="form-group col-sm-6 col-xs-12"
+                                     ng-class="{'has-error': formAddUser.name.$invalid && formAddUser.name.$dirty}">
+                                    <label>
+                                        Nombres
+                                        <span class="required"> * </span>
+                                    </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-edit"></i>
+                                        </div>
+                                        <input class="form-control" name="name" type="text" required
+                                               ng-model="addUser.params.name">
+                                        </input>
+                                    </div>
+                                    <span class="help-block" ng-messages="formAddUser.name.$error"
+                                          ng-show="formAddUser.name.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                </div>
+                                <div class="form-group col-sm-6 col-xs-12"
+                                     ng-class="{'has-error': formAddUser.surname.$invalid && formAddUser.surname.$dirty}">
+                                    <label>
+                                        Apellidos
+                                        <span class="required"> * </span>
+                                    </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-edit"></i>
+                                        </div>
+                                        <input class="form-control" name="surname" type="text" required
+                                               ng-model="addUser.params.surname">
+                                        </input>
+                                    </div>
+                                    <span class="help-block" ng-messages="formAddUser.surname.$error"
+                                          ng-show="formAddUser.surname.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6 col-xs-12"
+                                     ng-class="{'has-error': formAddUser.email.$invalid && formAddUser.email.$dirty}">
+                                    <label>
+                                        Correo electrónico
+                                        <span class="required"> * </span>
+                                    </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-envelope-o"></i>
+                                        </div>
+                                        <input class="form-control" type="email" name="email" required
+                                               ng-model="addUser.params.email">
+                                        </input>
+                                    </div>
+                                    <span class="help-block" ng-messages="formAddUser.email.$error"
+                                          ng-show="formAddUser.email.$dirty">
+                                            <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                </div>
+                                <div class="form-group col-sm-6 col-xs-12"
+                                     ng-class="{'has-error': formAddUser.username.$invalid && formAddUser.username.$dirty}">
+                                    <label>
+                                        Usuario de Acceso
+                                        <span class="required"> * </span>
+                                    </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-edit"></i>
+                                        </div>
+                                        <input class="form-control" name="username" type="text" required
+                                               ng-model="addUser.params.username">
+                                        </input>
+                                    </div>
+                                    <span class="help-block" ng-messages="formAddUser.username.$error"
+                                          ng-show="formAddUser.username.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-sm-6 col-xs-12"
+                                     ng-class="{'has-error': formAddUser.password.$invalid && formAddUser.password.$dirty}">
+                                    <label>
+                                        Clave
+                                        <span class="required"> * </span>
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-key"></i>
+                                        </div>
+                                        <input class="form-control" type="password" name="password" ng-minlength="6"
+                                               ng-required="::!addUser.isUpdate" ng-model="addUser.params.password">
+                                        </input>
+                                    </div>
+                                    <span class="help-block" ng-messages="formAddUser.password.$error"
+                                          ng-show="formAddUser.password.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                        <div ng-message="minlength">Mínimo 6 caracteres</div>
+                                    </span>
+                                </div>
+                                <div class="form-group col-sm-6 col-xs-12"
+                                     ng-class="{'has-error': formAddUser.passwordConfirmation.$invalid && formAddUser.passwordConfirmation.$dirty}">
+                                    <label>
+                                        Confirmar clave
+                                        <span class="required"> * </span>
+                                    </label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-key"></i>
+                                        </div>
+                                        <input class="form-control" type="password" name="passwordConfirmation"
+                                               ng-required="::!addUser.isUpdate"
+                                               password-match="addUser.params.password"
+                                               ng-model="addUser.passwordConfirmation">
+                                        </input>
+                                    </div>
+                                    <span class="help-block" ng-messages="formAddUser.passwordConfirmation.$error"
+                                          ng-show="formAddUser.passwordConfirmation.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                        <div ng-message="passwordMatch">Las claves no coinciden</div>
+                                    </span>
+                                </div>
+                                <!--<div class="form-group col-sm-2 col-xs-12"-->
+                                <!--ng-class="{'has-error': formAddUser.role.$invalid && formAddUser.role.$dirty}">-->
+                                <!--<label>-->
+                                <!--Estado-->
+                                <!--<span class="required"> * </span>-->
+                                <!--</label>-->
+                                <!--<div class="input-group">-->
+                                <!--<input class="form-control" bs-switch ng-model="addUser.params.active"-->
+                                <!--type="checkbox" switch-on-text="Activo" switch-off-text="Inactivo">-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button type="submit" ng-disabled="formAddUser.$invalid"
+                                            class="btn btn-primary btn-flat">
+                                        <i class="fa fa-check"></i>
+                                        Guardar
+                                    </button>
+                                    <a ng-click="addUser.redirect()" class="btn btn-default btn-flat">
+                                        Cancelar
+                                    </a>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!-- /.form-box -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

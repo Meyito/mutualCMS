@@ -1,0 +1,89 @@
+<header class="main-header" admin-lte>
+    <!-- Logo -->
+    <a href="javascript:;" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img src="assets/images/mutual-logo.png" style="width: 80%" title="logo"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><img src="assets/images/logo.png" title="logo"></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+
+        <a href="javascript:;" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="javascript:;" dropdown class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">{{::home.user.username}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header" style="height: 100px">
+                            <p>
+                                {{::home.user.name}} {{::home.user.surname}}
+                                <small>Miembro desde {{::home.user.created|dateToISO|date:"MMMM 'de' yyyy"}}</small>
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a ui-sref="home.profile" class="btn btn-default btn-flat">Perfil</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="javascript:;" ng-click="home.logout()" class="btn btn-default btn-flat">Cerrar
+                                    Sesión</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li ui-sref-active="active">
+                <a ui-sref="home.users">
+                    <i class="fa fa-users"></i> <span>Usuarios</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="home.rss">
+                    <i class="fa fa-rss"></i> <span>Recursos RSS</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="home.challenges" ui-sref-opts="{reload: true}">
+                    <i class="fa fa-trophy"></i> <span>Retos</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="home.reports">
+                    <i class="fa fa-bar-chart"></i> <span>Estadísticas</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper anim-in-out anim-slide-left" data-anim-sync="true" ui-view></div>
+<!-- /.content-wrapper -->
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+    </div>
+    <strong>Copyright &copy; 2016-2017 <a href="javascript:;">Equipo Mutual</a>.</strong> Todos los derechos reservados.
+</footer>
+
+<!-- AdminLTE App -->
+<!--<script src="assets/template/AdminLTE2/dist/js/app.min.js"></script>-->
+<div inform class="inform-fixed inform-shadow inform-animate" style="z-index: 9999 !important"></div>

@@ -1,0 +1,564 @@
+<section class="content-header" push-menu>
+    <h1>
+        Agregar Reto
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home.dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><a ui-sref="home.users"><i class="fa fa-trophy"></i> Retos</a></li>
+        <li><i class="fa fa-plus"></i> Agregar</li>
+    </ol>
+</section>
+
+<section class="content" block-ui="blockUI">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li class="cursor-pointer" ng-class="{'active': addChallenge.currentTab == 'questions'}">
+                        <a ng-click="addChallenge.currentTab = 'questions'" data-toggle="tab">Preguntas</a>
+                    </li>
+                    <li class="cursor-pointer" ng-class="{'active': addChallenge.currentTab == 'general'}">
+                        <a ng-click="addChallenge.currentTab = 'general'" data-toggle="tab">Información General</a>
+                    </li>
+                    <li class="pull-left header">Formulario de Registro de Retos</li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane" ng-class="{'active': addChallenge.currentTab == 'general'}">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p>Los campos marcados con (<span class="required">*</span>) son requeridos.</p>
+                                    <uib-alert class="row bootstrap-notification login-errors" type="danger"
+                                               ng-if="addChallenge.showErrors" close="addChallenge.showErrors = false">
+                                        <strong class="col-md-10">Se encontraron los siguientes errores:</strong>
+                                        <span class="col-md-6 col-xs-12"
+                                              ng-repeat="(field, errors) in addChallenge.errors">
+                                <p ng-repeat="error in errors">
+                                    <i class="fa fa-times-circle"></i> {{error}}
+                                </p>
+                            </span>
+                                    </uib-alert>
+                                    <form name="formAddChallenge" block-ui="blockUI" novalidate
+                                          class="with-password-strength"
+                                          ng-submit="addChallenge.params.icon && addChallenge.params.image && formAddChallenge.$valid && addChallenge.save(formAddChallenge)">
+                                        <div class="row">
+                                            <div class="form-group col-sm-6 col-xs-12"
+                                                 ng-class="{'has-error': formAddChallenge.title.$invalid && formAddChallenge.title.$dirty}">
+                                                <label>
+                                                    Título
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-edit"></i>
+                                                    </div>
+                                                    <input class="form-control" name="title" type="text" required
+                                                           ng-model="addChallenge.params.title">
+                                                    </input>
+                                                </div>
+                                                <span class="help-block" ng-messages="formAddChallenge.title.$error"
+                                                      ng-show="formAddChallenge.title.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                            </div>
+                                            <div class="form-group col-sm-6 col-xs-12"
+                                                 ng-class="{'has-error': formAddChallenge.categoryId.$invalid && formAddChallenge.categoryId.$dirty}">
+                                                <label>
+                                                    Categoría
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-list"></i>
+                                                    </div>
+                                                    <select class="form-control"
+                                                            name="categoryId"
+                                                            ng-options="category.id as category.name for category in addChallenge.categories"
+                                                            required
+                                                            ng-model="addChallenge.params.categoryId">
+                                                        <option value="">--Seleccione--</option>
+                                                    </select>
+                                                </div>
+                                                <span class="help-block"
+                                                      ng-messages="formAddChallenge.categoryId.$error"
+                                                      ng-show="formAddChallenge.categoryId.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6 col-xs-12"
+                                                 ng-class="{'has-error': formAddChallenge.minAge.$invalid && formAddChallenge.minAge.$dirty}">
+                                                <label>
+                                                    Edad Mínima (Años)
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-edit"></i>
+                                                    </div>
+                                                    <input class="form-control" name="minAge" type="number" min="1"
+                                                           max="15"
+                                                           required
+                                                           ng-model="addChallenge.params.minAge">
+                                                    </input>
+                                                </div>
+                                                <span class="help-block" ng-messages="formAddChallenge.minAge.$error"
+                                                      ng-show="formAddChallenge.minAge.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                        <div ng-message="min">La Edad debe ser mayor a 1 año</div>
+                                        <div ng-message="max">La Edad debe ser menor a 16 años</div>
+                                    </span>
+                                            </div>
+                                            <div class="form-group col-sm-6 col-xs-12"
+                                                 ng-class="{'has-error': formAddChallenge.maxAge.$invalid && formAddChallenge.maxAge.$dirty}">
+                                                <label>
+                                                    Edad Máxima (Años)
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-edit"></i>
+                                                    </div>
+                                                    <input class="form-control" name="maxAge" type="number" min="1"
+                                                           max="15"
+                                                           required
+                                                           ng-model="addChallenge.params.maxAge">
+                                                    </input>
+                                                </div>
+                                                <span class="help-block" ng-messages="formAddChallenge.maxAge.$error"
+                                                      ng-show="formAddChallenge.maxAge.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                        <div ng-message="min">La Edad debe ser mayor a 1 año</div>
+                                        <div ng-message="max">La Edad debe ser menor a 16 años</div>
+                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6 col-xs-12"
+                                                 ng-class="{'has-error': formAddChallenge.frequency.$invalid && formAddChallenge.frequency.$dirty}">
+                                                <label>
+                                                    Frecuencia (Días)
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-edit"></i>
+                                                    </div>
+                                                    <input class="form-control" name="frequency" type="number" min="1"
+                                                           required
+                                                           ng-model="addChallenge.params.frequency">
+                                                </div>
+                                                <span class="help-block" ng-messages="formAddChallenge.frequency.$error"
+                                                      ng-show="formAddChallenge.frequency.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                        <div ng-message="min">La Edad debe ser mayor a 1 día</div>
+                                    </span>
+                                            </div>
+                                            <div class="form-group col-sm-6 col-xs-12"
+                                                 ng-class="{'has-error': formAddChallenge.expPoints.$invalid && formAddChallenge.expPoints.$dirty}">
+                                                <label>
+                                                    Puntos de Experiencia
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-edit"></i>
+                                                    </div>
+                                                    <input class="form-control" name="expPoints" type="number" min="2"
+                                                           required
+                                                           ng-model="addChallenge.params.expPoints">
+                                                </div>
+                                                <span class="help-block" ng-messages="formAddChallenge.expPoints.$error"
+                                                      ng-show="formAddChallenge.expPoints.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                        <div ng-message="min">Los puntos de experiencia deben ser mayores a 1</div>
+                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-12"
+                                                 ng-class="{'has-error': formAddChallenge.description.$invalid && formAddChallenge.description.$dirty}">
+                                                <label>
+                                                    Descripción
+                                                    <span class="required"> * </span>
+                                                </label>
+
+                                                <textarea style="resize: none" class="form-control" name="description"
+                                                          rows="3"
+                                                          required
+                                                          ng-model="addChallenge.params.description">
+                                        </textarea>
+                                                <span class="help-block"
+                                                      ng-messages="formAddChallenge.description.$error"
+                                                      ng-show="formAddChallenge.description.$dirty">
+                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                    </span>
+                                            </div>
+                                        </div>
+                                        <div class="row" block-ui="files">
+                                            <div class="col-md-12">
+                                                <p>Se deben cargar primero los archivos listados a continuación antes de
+                                                    guardar el
+                                                    reto:</p>
+                                            </div>
+                                            <div class="col-md-10 col-md-offset-1">
+                                                <table class="table table-bordered table-striped dataTable documents-table"
+                                                       role="grid">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="text-center" width="40%">Descripción</th>
+                                                        <th class="text-center" width="40%">Vista previa</th>
+                                                        <th class="text-center">Opciones</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr class="challenge-images">
+                                                        <td>Ícono del Reto <span class="required">*</span></td>
+                                                        <td class="text-center">
+                                                            <div ngf-drop="addChallenge.validateFile($file)"
+                                                                 ngf-select="addChallenge.validateFile($file)"
+                                                                 name="icon"
+                                                                 ng-hide="addChallenge.icon"
+                                                                 ng-model="addChallenge.icon"
+                                                                 class="drop-box2 cursor-pointer"
+                                                                 ngf-drag-over-class="'dragover2'"
+                                                                 ngf-allow-dir="true"
+                                                                 accept="image/*"
+                                                                 ngf-pattern="'image/*'">
+                                                                Click Aquí o arrastre el archivo para seleccionarlo
+                                                            </div>
+                                                            <img ng-show="addChallenge.icon"
+                                                                 ngf-thumbnail="addChallenge.icon"
+                                                                 class="thumb2">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div ng-if="addChallenge.icon">
+                                                                <a ng-if="addChallenge.params.icon"
+                                                                   class="cursor-pointer"
+                                                                   ng-click="addChallenge.removeIcon()">
+                                                        <span class="label label-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                            Eliminar
+                                                        </span>
+                                                                </a>
+                                                                <a ng-if="!addChallenge.params.icon"
+                                                                   class="cursor-pointer"
+                                                                   ng-click="addChallenge.uploadIcon()">
+                                                        <span class="label label-success">
+                                                        <i class="fa fa-upload"></i>
+                                                            Cargar
+                                                        </span>
+                                                                </a>
+                                                            </div>
+                                                            <div ng-if="!addChallenge.params.icon && !addChallenge.icon">
+                                                    <span class="label label-info">
+                                                        <i class="fa fa-question-circle"></i>
+                                                        Pendiente
+                                                    </span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="challenge-images">
+                                                        <td>Imagen del Reto <span class="required">*</span></td>
+                                                        <td class="text-center">
+                                                            <div ngf-drop="addChallenge.validateFile($file)"
+                                                                 ngf-select="addChallenge.validateFile($file)"
+                                                                 name="icon"
+                                                                 ng-hide="addChallenge.image"
+                                                                 ng-model="addChallenge.image"
+                                                                 class="drop-box2 cursor-pointer"
+                                                                 ngf-drag-over-class="'dragover2'"
+                                                                 ngf-allow-dir="true"
+                                                                 accept="image/*"
+                                                                 ngf-pattern="'image/*'">
+                                                                Click Aquí o arrastre el archivo para seleccionarlo
+                                                            </div>
+                                                            <img ng-show="addChallenge.image"
+                                                                 ngf-thumbnail="addChallenge.image"
+                                                                 class="thumb2">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div ng-if="addChallenge.image">
+                                                                <a ng-if="addChallenge.params.image"
+                                                                   class="cursor-pointer"
+                                                                   ng-click="addChallenge.removeImage()">
+                                                       <span class="label label-danger">
+                                                            <i class="fa fa-trash"></i>
+                                                            Eliminar
+                                                        </span>
+                                                                </a>
+                                                                <a ng-if="!addChallenge.params.image"
+                                                                   class="cursor-pointer"
+                                                                   ng-click="addChallenge.uploadImage()">
+                                                        <span class="label label-success">
+                                                        <i class="fa fa-upload"></i>
+                                                            Cargar
+                                                        </span>
+                                                                </a>
+                                                            </div>
+                                                            <div ng-if="!addChallenge.params.image && !addChallenge.image">
+                                                    <span class="label label-info">
+                                                        <i class="fa fa-question-circle"></i>
+                                                        Pendiente
+                                                    </span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="challenge-images">
+                                                        <td>Archivo del Reto</td>
+                                                        <td class="text-center">
+                                                            <div ngf-drop="addChallenge.validateFile($file)"
+                                                                 ngf-select="addChallenge.validateFile($file)"
+                                                                 name="icon"
+                                                                 ng-hide="addChallenge.attached"
+                                                                 ng-model="addChallenge.attached"
+                                                                 class="drop-box2 cursor-pointer"
+                                                                 ngf-drag-over-class="'dragover2'"
+                                                                 ngf-allow-dir="true"
+                                                                 accept="image/*"
+                                                                 ngf-pattern="'image/*'">
+                                                                Click Aquí o arrastre el archivo para seleccionarlo
+                                                            </div>
+                                                            <img ng-show="addChallenge.attached"
+                                                                 ngf-thumbnail="addChallenge.attached"
+                                                                 class="thumb2">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <div ng-if="addChallenge.attached">
+                                                                <a ng-if="addChallenge.params.attached"
+                                                                   class="cursor-pointer"
+                                                                   ng-click="addChallenge.removeAttachment()">
+                                                                   <span class="label label-danger">
+                                                                        <i class="fa fa-trash"></i>
+                                                                        Eliminar
+                                                                    </span>
+                                                                </a>
+                                                                <a ng-if="!addChallenge.params.attached"
+                                                                   class="cursor-pointer"
+                                                                   ng-click="addChallenge.uploadAttachment()">
+                                                                    <span class="label label-success">
+                                                                        <i class="fa fa-upload"></i>
+                                                                        Cargar
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                            <div ng-if="!addChallenge.params.attached && !addChallenge.attached">
+                                                                <span class="label label-info">
+                                                                    <i class="fa fa-question-circle"></i>
+                                                                    Pendiente
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <button type="submit"
+                                                        ng-disabled="formAddChallenge.$invalid || !addChallenge.params.icon || !addChallenge.params.image || formAddChallenge.$pristine"
+                                                        class="btn btn-primary btn-flat">
+                                                    <i class="fa fa-check"></i>
+                                                    Guardar
+                                                </button>
+                                                <a ng-click="addChallenge.redirect()" class="btn btn-default btn-flat">
+                                                    Cancelar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- /.form-box -->
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <div class="tab-pane" ng-class="{'active': addChallenge.currentTab == 'questions'}">
+                        <div class="box box-solid">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <p class="col-md-8"
+                                       ng-show="addChallenge.params.id && addChallenge.questions.length">Los campos
+                                        marcados con (<span class="required">*</span>)
+                                        son requeridos.</p>
+                                    <p class="col-md-8"
+                                       ng-show="addChallenge.params.id && !addChallenge.questions.length">Agregue una
+                                        pregunta pulsando el boton <span>+</span> del lado derecho
+                                    </p>
+                                    <p class="col-md-8" ng-hide="addChallenge.params.id">Debe guardar primero la
+                                        Información general del
+                                        Reto antes de registrar preguntas.</p>
+                                    <div class="pull-right">
+                                        <button tooltip-placement="left"
+                                                uib-tooltip="Agregar Pregunta"
+                                                ng-if="addChallenge.params.id"
+                                                type="button"
+                                                ng-click="addChallenge.params.id && addChallenge.addQuestion()"
+                                                class="btn btn-box-tool export-button">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box-group">
+                                                <uib-accordion close-others="false">
+                                                    <div uib-accordion-group
+                                                         ng-repeat="question in addChallenge.questions track by $index"
+                                                         class="panel-default"
+                                                         is-open="question.isOpen">
+                                                        <uib-accordion-heading>
+                                                            Pregunta #{{$index+1}} <i class="pull-right glyphicon"
+                                                                                      ng-class="{'glyphicon-chevron-down': question.isOpen, 'glyphicon-chevron-right': !question.isOpen}"></i>
+                                                        </uib-accordion-heading>
+                                                        <ng-form name="formAddQuestion" novalidate>
+                                                            <div class="panel box box-solid">
+                                                                <div class="panel-collapse collapse in">
+                                                                    <div class="box-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group col-sm-6 col-xs-12"
+                                                                                 ng-class="{'has-error': formAddQuestion.characteristicId.$invalid && formAddQuestion.characteristicId.$dirty}">
+                                                                                <label>
+                                                                                    Característica
+                                                                                    <span class="required"> * </span>
+                                                                                </label>
+
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-addon">
+                                                                                        <i class="fa fa-list"></i>
+                                                                                    </div>
+                                                                                    <select class="form-control"
+                                                                                            name="characteristicId"
+                                                                                            ng-options="characteristic.id as characteristic.name for characteristic in addChallenge.characteristics"
+                                                                                            required
+                                                                                            ng-model="question.characteristicId">
+                                                                                        <option value="">
+                                                                                            --Seleccione--
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <span class="help-block"
+                                                                                      ng-messages="formAddQuestion.characteristicId.$error"
+                                                                                      ng-show="formAddQuestion.characteristicId.$dirty">
+                                                                                <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                                                            </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="form-group col-sm-12"
+                                                                                 ng-class="{'has-error': formAddQuestion.content.$invalid && formAddQuestion.content.$dirty}">
+                                                                                <label>
+                                                                                    Descripción de la Pregunta
+                                                                                    <span class="required"> * </span>
+                                                                                </label>
+
+                                                                                <textarea style="resize: none"
+                                                                                          class="form-control"
+                                                                                          name="content"
+                                                                                          rows="3"
+                                                                                          required
+                                                                                          ng-model="question.content">
+                                                                                </textarea>
+                                                                                <span class="help-block"
+                                                                                      ng-messages="formAddQuestion.content.$error"
+                                                                                      ng-show="formAddQuestion.content.$dirty">
+                                                                                    <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <h4 class="col-sm-12">Opciones</h4>
+                                                                            <div ng-repeat="answer in question.answers">
+                                                                                <div class="form-group col-sm-8"
+                                                                                     ng-class="{'has-error': formAddQuestion['answerContent'+$index].$invalid && formAddQuestion['answerContent'+$index].$dirty}">
+                                                                                    <input type="text"
+                                                                                           class="form-control"
+                                                                                           name="{{'answerContent'+$index}}"
+                                                                                           ng-focus="$last && addChallenge.addAnswer(question)"
+                                                                                           ng-required="($first && $last) || !$last"
+                                                                                           placeholder="Descripción de la Opción"
+                                                                                           ng-model="answer.content">
+                                                                                    <span class="help-block"
+                                                                                          ng-messages="formAddQuestion['answerContent'+$index].$error"
+                                                                                          ng-show="formAddQuestion['answerContent'+$index].$dirty">
+                                                                                                <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                                                                        </span>
+                                                                                </div>
+                                                                                <div class="form-group col-sm-3"
+                                                                                     ng-class="{'has-error': formAddQuestion['answerValue'+$index].$invalid && formAddQuestion['answerValue'+$index].$dirty}">
+                                                                                    <input type="number"
+                                                                                           class="form-control"
+                                                                                           name="{{'answerValue'+$index}}"
+                                                                                           placeholder="Valor"
+                                                                                           ng-required="($first && $last) || !$last"
+                                                                                           min="0"
+                                                                                           ng-model="answer.characteristicValue">
+                                                                                    <span class="help-block"
+                                                                                          ng-messages="formAddQuestion['answerValue'+$index].$error"
+                                                                                          ng-show="formAddQuestion['answerValue'+$index].$dirty">
+                                                                                        <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                                                                        <div ng-message="min">El Valor debe ser mayor o igual a 0</div>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="col-sm-1">
+                                                                                    <a class="cursor-pointer"
+                                                                                       ng-if="(!$last || (!$last && $first))"
+                                                                                       ng-click="addChallenge.deleteAnswer(question, answer)">
+                                                                                        <i class="fa fa-remove"
+                                                                                           style="font-size: 2em;"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-12">
+                                                                            <a ng-disabled="formAddQuestion.$invalid || formAddQuestion.$pristine"
+                                                                               ng-click="addChallenge.saveQuestion(formAddQuestion, question)"
+                                                                               class="btn btn-primary btn-flat">
+                                                                                <i class="fa fa-check"></i>
+                                                                                Guardar
+                                                                            </a>
+                                                                            <a ng-click="addChallenge.deleteQuestion(question)"
+                                                                               class="btn btn-danger btn-flat">
+                                                                                <i class="fa fa-remove"></i>
+                                                                                Eliminar
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-form>
+                                                    </div>
+                                                </uib-accordion>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.form-box -->
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-2 col-md-offset-5">
+                        <a class="btn btn-primary btn-flat cursor-pointer" ng-click="addChallenge.returnToList()">
+                            Regresar al Listado
+                        </a>
+                    </div>
+                </div>
+                <!-- /.tab-content -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

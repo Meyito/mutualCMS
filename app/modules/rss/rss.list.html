@@ -1,0 +1,63 @@
+<section class="content-header" push-menu>
+    <h1>
+        Recursos RSS
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="home.dashboard"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><i class="fa fa-rss"></i> Recursos RSS</li>
+    </ol>
+</section>
+
+<section class="content" block-ui="blockUI">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header" style="min-height: 40px">
+                    <div class="box-tools pull-right">
+                        <button tooltip-placement="left" uib-tooltip="Agregar Recurso RSS"
+                                type="button" ui-sref="home.rss.add" class="btn btn-box-tool export-button">
+                            <i class="fa fa-plus-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table ng-table="rss.tableParams" class="table table-bordered table-striped dataTable"
+                                       role="grid">
+                                    <tr ng-repeat="item in $data track by $index">
+                                        <td data-title="'ID'" class="text-center"> {{item.id}}</td>
+                                        <td data-title="'Url del Recurso RSS'" class="text-center"> {{item.source}}
+                                        </td>
+                                        <td class="text-center option-icons" style="padding: 5px !important">
+                                            <a class="btn btn-default" uib-tooltip="Actualizar" tooltip-placement="left"
+                                               href="javascript:;" ui-sref="home.rss.update({rssID: item.id})">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-default" uib-tooltip="Eliminar" tooltip-placement="left"
+                                               href="javascript:;" ng-click="rss.confirmDelete(item)">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-hide="rss.tableParams.total()">
+                                        <td colspan="3">
+                                            <div class="alert alert-warning">
+                                                <i class="icon fa fa-warning"></i>No se encontraron Recursos RSS
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+</section>

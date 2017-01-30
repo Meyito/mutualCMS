@@ -1,0 +1,3 @@
+var API_ROOT_PATH = 'http://localhost';
+var ENABLE_ANGULAR_DEBUG = true;
+var STORAGE_NAMESPACE = 'mutual';

@@ -1,0 +1,175 @@
+<section class="content-header" push-menu>
+    <h1>
+        Estadísticas
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><i class="fa fa-bar-chart"></i> Estadísticas</li>
+    </ol>
+</section>
+
+<section class="content" block-ui="blockUI">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <form name="formReport" block-ui="blockUI" class="form-horizontal" novalidate
+                      ng-submit="report.query()">
+                    <div class="box-body">
+                        <div class="form-group"
+                             ng-class="{'has-error': formReport.selectedEvent.$invalid && formReport.selectedEvent.$dirty}">
+                            <label for="filter" class="col-sm-5 control-label">
+                                Seleccione un filtro
+                            </label>
+
+                            <div class="col-sm-3">
+                                <select class="form-control"
+                                        required
+                                        id="filter"
+                                        name="selectedEvent"
+                                        ng-change="report.clearFilters()"
+                                        ng-options="key as key.label for key in report.events"
+                                        ng-model="report.selectedEvent">
+                                    <option value="">--Seleccione--</option>
+                                </select>
+                                <span class="help-block"
+                                      ng-messages="formReport.selectedEvent.$error"
+                                      ng-show="formReport.selectedEvent.$dirty">
+                                    <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-show="report.selectedEvent">
+                            <hr>
+                            <div class="box-header" style="min-height: 40px">
+                                <h4>Filtros del Evento</h4>
+                                <p>Para agregar un nuevo filtro presione el botón <i class="fa fa-plus-circle"></i> de
+                                    la parte derecha</p>
+                                <p>Algunos campos pueden ser agrupables para evitar que se tengan en cuenta mas de una vez</p>
+                                <div class="box-tools pull-right">
+                                    <button tooltip-placement="left" uib-tooltip="Agregar Filtro"
+                                            type="button" ng-click="report.addFilter()"
+                                            class="btn btn-box-tool export-button">
+                                        <i class="fa fa-plus-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="report.selectedEvent">
+                            <div ng-repeat="filter in report.filters">
+                                <ng-form name="formAddFilter" novalidate>
+                                    <div class="row">
+                                        <div class="col-sm-1 text-right" style="padding-top: 25px;">
+                                            <a class="cursor-pointer"
+                                               ng-if="report.filters.length > 1"
+                                               uib-tooltip="Eliminar"
+                                               tooltip-placement="left"
+                                               ng-click="report.removeFilter(filter)">
+                                                <i class="fa fa-remove"
+                                                   style="font-size: 2em;"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Seleccione un Campo</label>
+                                            <select class="form-control"
+                                                    name="field"
+                                                    required
+                                                    ng-model="filter.selectedField"
+                                                    ng-change="report.checkFilter(filter)"
+                                                    ng-options="f as f.label for f in report.selectedEvent.fields">
+                                                <option value="">Seleccione un campo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3"
+                                             ng-if="filter.selectedField && filter.selectedField.type.operators.length">
+                                            <label>Seleccione un operador</label>
+                                            <select class="form-control"
+                                                    name="operator"
+                                                    required
+                                                    ng-model="filter.selectedOperator"
+                                                    ng-options="f for f in filter.selectedField.type.operators">
+                                                <option value="">Seleccione un evento</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3" ng-if="filter.selectedOperator">
+                                            <div ng-switch="filter.selectedField.type.name">
+                                                <div ng-switch-when="string">
+                                                    <label>Ingrese un valor</label>
+                                                    <input class="form-control"
+                                                           name="value"
+                                                           type="text"
+                                                           required
+                                                           ng-model="filter.value"/>
+                                                </div>
+                                                <div ng-switch-when="number">
+                                                    <label>Ingrese un número</label>
+                                                    <input class="form-control"
+                                                           name="value"
+                                                           type="number"
+                                                           required
+                                                           ng-model="filter.value"
+                                                           ng-options="f for f in report.selectedField.type.operators"/>
+                                                </div>
+                                                <div ng-switch-when="reference">
+                                                    <label>Seleccione un valor</label>
+                                                    <select class="form-control"
+                                                            name="value"
+                                                            required
+                                                            ng-model="filter.value"
+                                                            ng-options="f.id as f.name for f in filter.selectedField.references">
+                                                        <option value="">--Seleccione--</option>
+                                                    </select>
+                                                </div>
+                                                <div ng-switch-when="date">
+                                                    <label>Seleccione un valor</label>
+                                                    <input type="text"
+                                                           class="form-control cursor-pointer"
+                                                           name="value"
+                                                           required
+                                                           uib-datepicker-popup="yyyy-MM-dd"
+                                                           ng-model="filter.value"
+                                                           ng-click="filter.opened = !filter.opened"
+                                                           readonly
+                                                           is-open="filter.opened"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"
+                                             ng-if="filter.selectedField && filter.selectedField.grupable">
+                                            <label for="group{{$index}}">¿Agrupar?</label>
+                                            <input type="checkbox"
+                                                   style="display: block"
+                                                   id="group{{$index}}"
+                                                   ng-model="filter.group">
+                                        </div>
+                                    </div>
+                                </ng-form>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="report.result">
+                            <hr>
+                            <div class="col-md-12 text-center" style="margin-top: 25px;">
+                                <h4>El resultado es: {{report.result}}</h4>
+                            </div>
+                        </div>
+
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-5 text-center">
+                                <button type="submit"
+                                        ng-disabled="formReport.$invalid"
+                                        class="btn btn-primary btn-flat">
+                                    <i class="fa fa-check"></i>
+                                    Consultar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+</section>

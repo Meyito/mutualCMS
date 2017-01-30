@@ -1,0 +1,280 @@
+body, html {
+    height: 100%;
+}
+
+.register-box {
+    width: 100% !important;
+}
+
+.required {
+    color: #e02222;
+    font-size: 12px;
+    padding-left: 2px;
+}
+
+.register-box-body {
+    overflow: hidden;
+}
+
+.form-group.has-error .help-block {
+    color: #dd4b39;
+}
+
+.wrapper {
+    background-color: #ecf0f5 !important;
+}
+
+.sidebar {
+    background-color: #222d32 !important;
+}
+
+.sidebar-menu {
+    padding-top: 40px;
+}
+
+.bootstrap-notification.alert-danger {
+    color: #a94442 !important;
+    background-color: #f2dede !important;
+    border-color: #ebccd1 !important;
+}
+
+.bootstrap-notification p {
+    margin: 0 0 3px !important;
+}
+
+.bootstrap-notification.login-errors {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.bootstrap-notification strong {
+    margin-bottom: 10px !important;
+}
+
+.bootstrap-notification.resend-email-errors {
+    margin: 10px 20px 0 !important;
+}
+
+#formUpdatePerson.show-info .form-control[disabled], #formUpdatePerson.show-info .form-control[readonly],
+#formUpdatePerson.show-info span.btn-default, #formUpdatePerson.show-info .input-group .input-group-addon {
+    background-color: transparent;
+}
+
+#formUpdatePerson.show-info .input-group .input-group-addon, #formUpdatePerson.show-info .form-control {
+    border: 0;
+}
+
+#formUpdatePerson.show-info .form-control[disabled] {
+    cursor: default;
+}
+
+#formUpdatePerson.show-info div.ui-select-container i.caret {
+    display: none;
+}
+
+#formUpdatePerson.show-info span.required {
+    display: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.pt0 {
+    padding-top: 0 !important;
+}
+
+.pb0 {
+    padding-bottom: 0 !important;
+}
+
+.angular-ui-tree-handle {
+    background: #f8faff;
+    border: 1px solid #dae2ea;
+    color: #7c9eb2;
+    padding: 10px 10px;
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+tr.angular-ui-tree-empty {
+    height: 100px
+}
+
+/* --- Tree --- */
+.tree-node {
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+}
+
+.nodrop {
+    background-color: #f2dede;
+}
+
+.tree-node-content {
+    margin: 10px;
+}
+
+.tree-handle {
+    padding: 10px;
+    background: #428bca;
+    color: #FFF;
+    margin-right: 10px;
+}
+
+.angular-ui-tree-placeholder {
+    background: #f0f9ff;
+    border: 2px dashed #bed2db;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#permissions-tree .angular-ui-tree-handle {
+    cursor: default;
+}
+
+#permissions-tree label {
+    cursor: pointer;
+}
+
+form.form-update-password div.progress.progress-bar-alert {
+    margin-bottom: 10px !important;
+}
+
+form.with-password-strength div.progress.progress-bar-alert {
+    margin-bottom: 10px !important;
+}
+
+.pin-paid-backround {
+    background-color: rgba(0, 166, 90, 0.42);
+}
+
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    padding-top: 25px;
+    margin: 10px;
+}
+
+.dragover {
+    border: 5px dashed blue;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+.round-tab:hover {
+    border: 2px solid #e0e0e0 !important;
+}
+
+button.export-button {
+    font-size: 25px !important;
+}
+
+.option-icons a {
+    border-radius: 20px;
+    padding: 4px 8px;
+    font-size: 10px;
+}
+
+.modal-content .modal-body .simditor .simditor-toolbar {
+    width: 100% !important;
+}
+
+.modal-content .modal-body .simditor .simditor-toolbar > ul > li > .toolbar-item {
+    width: 40px !important;
+}
+
+table.pins-table th, table.pins-table td {
+    text-align: center;
+}
+
+td.pin-options a {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 1.2em;
+}
+
+table.notifications-table tr {
+    cursor: pointer;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.unread-notification {
+    font-weight: bold;
+    background: #f9f9f9;
+}
+
+.selected-notification {
+    background-color: #e8e8e8 !important;
+}
+
+table.careers-report-table td {
+    text-align: center;
+}
+
+.drop-box2 {
+    background: #F8F8F8;
+    border: 2px dashed #DDD;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    line-height: 3;
+}
+
+.dragover2 {
+    border: 2px dashed #dd4b39;
+}
+
+table.documents-table td {
+    vertical-align: inherit !important;
+}
+
+.process-box {
+    min-height: 75px;
+}
+
+div.process-icon {
+    top: -20px !important;
+}
+
+div.process-icon i {
+    font-size: 75px !important;
+}
+
+.icon-thumb {
+    width: 50px;
+    height: 50px;
+    float: none;
+    position: relative;
+    top: 7px;
+}
+
+.drop-zone {
+    min-height: 65px;
+    line-height: 4;
+    width: 100%;
+}
+
+.thumb2 {
+    height: 67px;
+}
+
+.challenge-images {
+    height: 67px;
+}
