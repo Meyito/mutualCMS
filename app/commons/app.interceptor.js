@@ -38,6 +38,8 @@
                         MyStore.remove(AUTH_DEFAULTS.TOKEN_NAME);
                         $injector.get('$state').transitionTo(AUTH_DEFAULTS.LOGIN_STATE);
                         blockUI.stop();
+                    } else if (rejection.status >= 500) {
+                        swal("Error!", "Ocurrió un error. Por favor intente más tarde. Si el problema persiste, contacte con el Administrador", "error");
                     }
                     return $q.reject(rejection);
                 }
