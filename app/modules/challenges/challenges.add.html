@@ -269,17 +269,12 @@
                                                     <tr class="challenge-images">
                                                         <td>Imagen del Reto <span class="required">*</span></td>
                                                         <td class="text-center">
-                                                            <div ngf-drop="addChallenge.validateFile($file)"
-                                                                 ngf-select="addChallenge.validateFile($file)"
-                                                                 name="icon"
+                                                            <div name="icon"
                                                                  ng-hide="addChallenge.image"
                                                                  ng-model="addChallenge.image"
-                                                                 class="drop-box2 cursor-pointer"
-                                                                 ngf-drag-over-class="'dragover2'"
-                                                                 ngf-allow-dir="true"
-                                                                 accept="image/*"
-                                                                 ngf-pattern="'image/*'">
-                                                                Click Aquí o arrastre el archivo para seleccionarlo
+                                                                 ng-click="addChallenge.selectImage()"
+                                                                 class="drop-box2 cursor-pointer">
+                                                                Click Aquí para seleccionar
                                                             </div>
                                                             <img ng-show="addChallenge.image"
                                                                  ngf-thumbnail="addChallenge.image"

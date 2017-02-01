@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Seleccione una imagen</h3>
+</div>
+<div class="modal-body" style="max-height: 300px;overflow: auto;">
+    <div class="row" ng-repeat="row in images.imageList | chunkBy: 6">
+        <div class="cursor-pointer col-md-2 text-center"
+             ng-click="images.selectedImage = image"
+             ng-repeat="image in row"
+             style="padding-bottom: 10px;">
+            <img style="max-height: 80px"
+                 ng-class="{'selected-image': images.selectedImage.name === image.name}"
+                 ng-src="{{::image.url}}" class="responsive">
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button"
+            ng-disabled="!images.selectedImage"
+            ng-click="images.selectedImage && images.ok()">Seleccionar</button>
+    <button class="btn btn-warning" type="button" ng-click="images.cancel()">Cancelar</button>
+</div>

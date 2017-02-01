@@ -278,3 +278,7 @@ div.process-icon i {
 .challenge-images {
     height: 67px;
 }
+
+.selected-image {
+    border: solid 5px #3c8dbc;
+}

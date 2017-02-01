@@ -11,11 +11,14 @@
         'characteristics',
         '$q',
         'selectedChallenge',
-        'APP_DEFAULTS'
+        'APP_DEFAULTS',
+        'images',
+        '$uibModal',
+        '$scope'
     ];
 
     function AddChallengeController(challengesService, blockUI, $state, categories, characteristics, $q, selectedChallenge,
-                                    APP_DEFAULTS) {
+                                    APP_DEFAULTS, images, $uibModal, $scope) {
 
         var addChallenge = this;
         var blockedItem = blockUI.instances.get('blockUI');
@@ -105,7 +108,8 @@
         };
 
         addChallenge.removeImage = function () {
-            remove('images', 'image');
+            addChallenge.params.image = addChallenge.image = undefined;
+            // remove('images', 'image');
         };
 
         addChallenge.removeIcon = function () {
@@ -118,6 +122,26 @@
 
         addChallenge.uploadAttachment = function () {
             upload(addChallenge.attached, 'attach', 'attached');
+        };
+
+        addChallenge.selectImage = function () {
+
+            $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'app/modules/challenges/challenges.add.selectImage.tmpl.html',
+                controller: 'SelectImageController',
+                controllerAs: 'images',
+                size: "lg",
+                resolve: {
+                    imageList: function () {
+                        return images;
+                    }
+                }
+            }).result.then(function (data) {
+                addChallenge.params.image = data.savePath;
+                addChallenge.image = APP_DEFAULTS.ENDPOINT + addChallenge.params.image;
+            });
         };
 
         addChallenge.saveQuestion = function (form, question) {

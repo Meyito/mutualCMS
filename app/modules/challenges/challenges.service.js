@@ -77,6 +77,10 @@
             return Restangular.one(challenges.resource, challengeID).one('reviewQuestions', questionID).one('answers', answer.id).customPUT(answer);
         };
 
+        challenges.getFiles = function (container) {
+            return Restangular.one('files', container).getList('files');
+        };
+
         return challenges;
     }
 

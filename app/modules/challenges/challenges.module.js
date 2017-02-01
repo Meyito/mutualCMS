@@ -6,7 +6,8 @@
             'ui.router',
             'ui.router.stateHelper',
             'ngTable',
-            'ngFileUpload'
+            'ngFileUpload',
+            'angular.filter'
         ])
         .config(routeConfig);
 
@@ -50,7 +51,10 @@
                         }],
                         selectedChallenge: function () {
                             return null;
-                        }
+                        },
+                        images: ['challengesService', function (challengesService) {
+                            return challengesService.getFiles("images");
+                        }]
                     }
                 },
                 {
@@ -69,6 +73,9 @@
                         }],
                         characteristics: ['characteristicsService', function (characteristicsService) {
                             return characteristicsService.all();
+                        }],
+                        images: ['challengesService', function (challengesService) {
+                            return challengesService.getFiles("images");
                         }],
                         selectedChallenge: ['challengesService', '$stateParams', function (challengesService, $stateParams) {
                             var query = {
