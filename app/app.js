@@ -50,7 +50,7 @@
                         url: '/profile',
                         templateUrl: 'app/modules/users/users.add.html',
                         controller: 'UpdateUserController as addUser',
-                        data: {label: 'Actualizar Perfil'},
+                        data: {label: 'Actualizar Perfil', authNotRequired: true},
                         resolve: {
                             selectedUser: ['usersService', 'authenticationService',
                                 function (usersService, authenticationService) {
