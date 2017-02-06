@@ -1,7 +1,8 @@
 angular
     .module('app.authentication')
     .directive('passwordMatch', passwordMatch)
-    .directive('icheck', icheck);
+    .directive('icheck', icheck)
+    .directive('hasPermission', hasPermission);
 
 /**
  * Matches two password fields
@@ -61,6 +62,19 @@ function icheck($timeout, $parse) {
                     element.iCheck(icheckOptions, action).on('ifChanged', modelChanged);
                 });
             };
+        }
+    };
+}
+
+hasPermission.$inject = [
+    'authenticationService'
+];
+
+function hasPermission(authenticationService) {
+
+    return function (scope, element) {
+        if (!authenticationService.hasPermission()) {
+            element.remove();
         }
     };
 }

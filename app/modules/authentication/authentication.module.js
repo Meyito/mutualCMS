@@ -70,6 +70,10 @@
                         {
                             reload: true
                         });
+                } else if ((to.data && !to.data.authNotRequired) && !authenticationService.hasPermission()) {
+                    evt.preventDefault();
+                    blockUI.stop();
+                    $state.go(AUTH_DEFAULTS.LANDING_PAGE);
                 }
             } else if (authenticationService.getToken() && !authenticationService.isTokenExpired() &&
                 to.name === AUTH_DEFAULTS.LOGIN_STATE) {

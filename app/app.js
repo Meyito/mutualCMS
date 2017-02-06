@@ -38,7 +38,10 @@
                 resolve: {
                     currentUser: ['usersService', 'authenticationService', function (usersService, authenticationService) {
                         var token = authenticationService.getToken();
-                        return usersService.find(token.userId);
+                        return usersService.find(token.userId).then(function (response) {
+                            authenticationService.saveUser(response);
+                            return response;
+                        });
                     }]
                 },
                 children: [

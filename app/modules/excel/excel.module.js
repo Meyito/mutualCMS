@@ -19,7 +19,7 @@
             url: '/exportar',
             templateUrl: 'app/modules/excel/excel.html',
             controller: 'ExcelController as excel',
-            data: {label: "Exportar a Excel"},
+            data: {label: "Exportar a Excel", authNotRequired: true},
             resolve: {
                 events: ['reportsService', function (reportsService) {
                     return reportsService.getEvents();

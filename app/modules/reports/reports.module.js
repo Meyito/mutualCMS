@@ -21,7 +21,7 @@
             url: '/reportes',
             templateUrl: 'app/modules/reports/reports.html',
             controller: 'ReportController as report',
-            data: {label: "Reportes"},
+            data: {label: "Reportes", authNotRequired: true},
             resolve: {
                 events: ['reportsService', function (reportsService) {
                     return reportsService.getEvents();

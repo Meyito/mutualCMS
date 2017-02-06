@@ -35,9 +35,11 @@
          * Retrieves current authenticated user
          */
         auth.getUser = function () {
+            return MyStore.get("current-user");
+        };
 
-            var user = {};
-            return user;
+        auth.saveUser = function (user) {
+            MyStore.set("current-user", Restangular.stripRestangular(user));
         };
 
         /**
@@ -73,6 +75,11 @@
          */
         auth.setToken = function (token) {
             MyStore.set(AUTH_DEFAULTS.TOKEN_NAME, token);
+        };
+
+        auth.hasPermission = function () {
+            var user = auth.getUser();
+            return !user.onlyStats;
         };
 
         return auth;
