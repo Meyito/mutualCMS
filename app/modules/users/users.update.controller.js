@@ -21,9 +21,10 @@
         addUser.icon = "fa-edit";
         addUser.main = "Actualizar Usuario";
         addUser.isUpdate = true;
+        addUser.updatingUser = $state.current.name !== "home.profile";
 
         addUser.redirect = function () {
-            if ($state.current.name !== "home.profile") {
+            if (addUser.updatingUser) {
                 $state.go("home.users", {}, {reload: true});
             }
         };

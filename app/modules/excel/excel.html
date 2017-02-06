@@ -1,0 +1,162 @@
+<section class="content-header" push-menu>
+    <h1>
+        Exportar Datos
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="javascript:;"><i class="fa fa-home"></i> Inicio</a></li>
+        <li><i class="fa fa-file-excel-o"></i> Exportar</li>
+    </ol>
+</section>
+
+<section class="content" block-ui="blockUI">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <form name="formReport" block-ui="blockUI" class="form-horizontal" novalidate
+                      ng-submit="excel.export()">
+                    <div>
+                        <div class="box-header" style="min-height: 40px">
+                            <h4>Eventos del Sistema</h4>
+                            <p>Para agregar un nuevo filtro presione el botón <i class="fa fa-plus-circle"></i> de
+                                la parte derecha</p>
+                            <p>Algunos campos pueden ser agrupables para evitar que se tengan en cuenta mas de una
+                                vez.</p>
+                            <div class="box-tools pull-right">
+                                <button tooltip-placement="left" uib-tooltip="Agregar Filtro"
+                                        type="button" ng-click="excel.addFilter()"
+                                        class="btn btn-box-tool export-button">
+                                    <i class="fa fa-plus-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div>
+                            <div ng-repeat="filter in excel.filters">
+                                <ng-form name="formAddFilter" novalidate>
+                                    <div class="row">
+                                        <div class="col-sm-1 text-right" style="padding-top: 25px;">
+                                            <a class="cursor-pointer"
+                                               ng-if="excel.filters.length > 1"
+                                               uib-tooltip="Eliminar"
+                                               tooltip-placement="left"
+                                               ng-click="excel.removeFilter(filter)">
+                                                <i class="fa fa-remove"
+                                                   style="font-size: 2em;"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Seleccione un Evento</label>
+                                            <select class="form-control"
+                                                    name="field"
+                                                    required
+                                                    ng-model="filter.selectedEvent"
+                                                    ng-options="e as e.label for e in excel.events">
+                                                <option value="">Seleccione un campo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Seleccione un Campo</label>
+                                            <select class="form-control"
+                                                    name="field"
+                                                    required
+                                                    ng-model="filter.selectedField"
+                                                    ng-change="excel.checkFilter(filter)"
+                                                    ng-options="f as f.label for f in filter.selectedEvent.fields">
+                                                <option value="">Seleccione un campo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2"
+                                             ng-if="filter.selectedField && filter.selectedField.type.operators.length">
+                                            <label>Seleccione un operador</label>
+                                            <select class="form-control"
+                                                    name="operator"
+                                                    required
+                                                    ng-model="filter.selectedOperator"
+                                                    ng-options="f for f in filter.selectedField.type.operators">
+                                                <option value="">Seleccione un evento</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2" ng-if="filter.selectedOperator">
+                                            <div ng-switch="filter.selectedField.type.name">
+                                                <div ng-switch-when="string">
+                                                    <label>Ingrese un valor</label>
+                                                    <input class="form-control"
+                                                           name="value"
+                                                           type="text"
+                                                           required
+                                                           ng-model="filter.value"/>
+                                                </div>
+                                                <div ng-switch-when="number">
+                                                    <label>Ingrese un número</label>
+                                                    <input class="form-control"
+                                                           name="value"
+                                                           type="number"
+                                                           required
+                                                           ng-model="filter.value"
+                                                           ng-options="f for f in excel.selectedField.type.operators"/>
+                                                </div>
+                                                <div ng-switch-when="reference">
+                                                    <label>Seleccione un valor</label>
+                                                    <select class="form-control"
+                                                            name="value"
+                                                            required
+                                                            ng-model="filter.value"
+                                                            ng-options="f as f.name for f in filter.selectedField.references">
+                                                        <option value="">--Seleccione--</option>
+                                                    </select>
+                                                </div>
+                                                <div ng-switch-when="date">
+                                                    <label>Seleccione un valor</label>
+                                                    <input type="text"
+                                                           class="form-control cursor-pointer"
+                                                           name="value"
+                                                           required
+                                                           uib-datepicker-popup="yyyy-MM-dd"
+                                                           ng-model="filter.value"
+                                                           ng-click="filter.opened = !filter.opened"
+                                                           readonly
+                                                           is-open="filter.opened"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1"
+                                             ng-if="filter.selectedField && filter.selectedField.grupable">
+                                            <label for="group{{$index}}">¿Agrupar?</label>
+                                            <input type="checkbox"
+                                                   style="display: block"
+                                                   id="group{{$index}}"
+                                                   ng-model="filter.group">
+                                        </div>
+                                    </div>
+                                </ng-form>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="excel.result">
+                            <hr>
+                            <div class="col-md-12 text-center" style="margin-top: 25px;">
+                                <h4>El resultado es: {{excel.result}}</h4>
+                            </div>
+                        </div>
+
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-sm-2 col-sm-offset-5 text-center">
+                                <button type="submit"
+                                        ng-disabled="formReport.$invalid"
+                                        class="btn btn-primary btn-flat">
+                                    <i class="fa fa-check"></i>
+                                    Exportar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+</section>

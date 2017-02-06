@@ -8,6 +8,7 @@
         'app.reports',
         'app.authentication',
         'app.challenges',
+        'app.excel',
         'ngAnimate',
         'ui.bootstrap',
         'anim-in-out',

@@ -6,10 +6,12 @@
     reportsService.$inject = [
         'Restangular',
         '$http',
-        "APP_DEFAULTS"
+        "APP_DEFAULTS",
+        "authenticationService",
+        "$window"
     ];
 
-    function reportsService(Restangular, $http, APP_DEFAULTS) {
+    function reportsService(Restangular, $http, APP_DEFAULTS, authenticationService, $window) {
         /*jshint validthis: true */
         var reports = this;
 
@@ -23,6 +25,15 @@
 
         reports.execQuery = function (data) {
             return Restangular.all('stats').customPOST(data, 'exec-query');
+        };
+
+        reports.export = function (data) {
+
+            var token = authenticationService.getToken();
+            var events = encodeURIComponent(JSON.stringify(data));
+            var url = APP_DEFAULTS.ENDPOINT + "/stats/exec-queries-to-file?events=" + events +
+                "&access_token=" + token.id;
+            $window.open(url);
         };
 
         return reports;

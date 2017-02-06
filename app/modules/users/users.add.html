@@ -96,8 +96,12 @@
                                             <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
                                     </span>
                                 </div>
-                                <div class="form-group col-sm-6 col-xs-12"
-                                     ng-class="{'has-error': formAddUser.username.$invalid && formAddUser.username.$dirty}">
+                                <div class="form-group"
+                                     ng-class="{
+                                     'has-error': formAddUser.username.$invalid && formAddUser.username.$dirty,
+                                     'col-sm-4' : (addUser.updatingUser || !addUser.isUpdate),
+                                     'col-sm-6' : (!addUser.updatingUser || addUser.isUpdate)
+                                     }">
                                     <label>
                                         Usuario de Acceso
                                         <span class="required"> * </span>
@@ -107,14 +111,30 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-edit"></i>
                                         </div>
-                                        <input class="form-control" name="username" type="text" required
+                                        <input ng-if="::(addUser.updatingUser || !addUser.isUpdate)"
+                                               class="form-control"
+                                               name="username"
+                                               type="text" required
                                                ng-model="addUser.params.username">
                                         </input>
+                                        <label ng-hide="::(addUser.updatingUser || !addUser.isUpdate)"
+                                               class="form-control"
+                                               ng-bind="::addUser.params.username"></label>
                                     </div>
                                     <span class="help-block" ng-messages="formAddUser.username.$error"
                                           ng-show="formAddUser.username.$dirty">
                                         <div ng-messages-include="app/commons/form-validation/ngMessages.tmpl.html"></div>
                                     </span>
+                                </div>
+                                <div ng-if="::(addUser.updatingUser || !addUser.isUpdate)" class="form-group col-sm-2">
+                                    <label>
+                                        ¿Sólo Estadísticas?
+                                        <span class="required"> * </span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input class="form-control" bs-switch ng-model="addUser.params.onlyStats"
+                                               type="checkbox" switch-on-text="SI" switch-off-text="NO">
+                                    </div>
                                 </div>
                             </div>
 
@@ -129,9 +149,9 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-key"></i>
                                         </div>
-                                        <input class="form-control" type="password" name="password" ng-minlength="6"
-                                               ng-required="::!addUser.isUpdate" ng-model="addUser.params.password">
-                                        </input>
+                                        <input class="form-control" type="password"
+                                               name="password" ng-minlength="6"
+                                               ng-required="::!addUser.isUpdate" ng-model="addUser.params.password"/>
                                     </div>
                                     <span class="help-block" ng-messages="formAddUser.password.$error"
                                           ng-show="formAddUser.password.$dirty">
@@ -139,7 +159,7 @@
                                         <div ng-message="minlength">Mínimo 6 caracteres</div>
                                     </span>
                                 </div>
-                                <div class="form-group col-sm-6 col-xs-12"
+                                <div class="form-group col-sm-6"
                                      ng-class="{'has-error': formAddUser.passwordConfirmation.$invalid && formAddUser.passwordConfirmation.$dirty}">
                                     <label>
                                         Confirmar clave
@@ -161,17 +181,6 @@
                                         <div ng-message="passwordMatch">Las claves no coinciden</div>
                                     </span>
                                 </div>
-                                <!--<div class="form-group col-sm-2 col-xs-12"-->
-                                <!--ng-class="{'has-error': formAddUser.role.$invalid && formAddUser.role.$dirty}">-->
-                                <!--<label>-->
-                                <!--Estado-->
-                                <!--<span class="required"> * </span>-->
-                                <!--</label>-->
-                                <!--<div class="input-group">-->
-                                <!--<input class="form-control" bs-switch ng-model="addUser.params.active"-->
-                                <!--type="checkbox" switch-on-text="Activo" switch-off-text="Inactivo">-->
-                                <!--</div>-->
-                                <!--</div>-->
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">

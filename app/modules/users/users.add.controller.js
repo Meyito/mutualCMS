@@ -15,7 +15,9 @@
         var addUser = this;
         var blockedItem = blockUI.instances.get('blockUI');
 
-        addUser.params = {};
+        addUser.params = {
+            onlyStats: false
+        };
         addUser.title = "Agregar";
         addUser.content = "Formulario de Registro de Usuarios";
         addUser.icon = "fa-plus";
