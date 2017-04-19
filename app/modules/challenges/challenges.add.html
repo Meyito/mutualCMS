@@ -220,7 +220,8 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr class="challenge-images">
+                                                    <!--Oculto-->
+                                                    <tr class="challenge-images" ng-if="::false">
                                                         <td>Ícono del Reto <span class="required">*</span></td>
                                                         <td class="text-center">
                                                             <div ngf-drop="addChallenge.validateFile($file)"
@@ -266,6 +267,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <!--Fin oculto-->
                                                     <tr class="challenge-images">
                                                         <td>Imagen del Reto <span class="required">*</span></td>
                                                         <td class="text-center">

@@ -100,7 +100,7 @@
         };
 
         addChallenge.uploadImage = function () {
-            upload(addChallenge.image, 'images', 'image');
+            upload(addChallenge.image, 'images', 'image', 'icon');
         };
 
         addChallenge.uploadIcon = function () {
@@ -283,10 +283,14 @@
             return challengesService.updateAnswer(addChallenge.params.id, question.id, answer);
         }
 
-        function upload(file, container, pos) {
+        function upload(file, container, pos, pos2) {
             filesSection.start();
             challengesService.uploadFile(file, container).then(function (response) {
-                addChallenge.params[pos] = "/files/" + container + "/download/" + response.data.result.files.file[0].name;
+                var path = "/files/" + container + "/download/" + response.data.result.files.file[0].name;
+                addChallenge.params[pos] = path;
+                if (pos2) {
+                    addChallenge.params[pos2] = path;
+                }
             }).finally(function () {
                 filesSection.stop();
             });
