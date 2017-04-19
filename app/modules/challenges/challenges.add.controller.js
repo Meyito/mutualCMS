@@ -109,6 +109,7 @@
 
         addChallenge.removeImage = function () {
             addChallenge.params.image = addChallenge.image = undefined;
+            addChallenge.params.icon = undefined;
             // remove('images', 'image');
         };
 
@@ -140,6 +141,7 @@
                 }
             }).result.then(function (data) {
                 addChallenge.params.image = data.savePath;
+                addChallenge.params.icon = data.savePath;
                 addChallenge.image = APP_DEFAULTS.ENDPOINT + addChallenge.params.image;
             });
         };
