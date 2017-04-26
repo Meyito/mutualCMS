@@ -4,7 +4,12 @@
   "description": "CMS de la App Mutual",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pull": "git pull origin master",
+    "bower": "bower install --allow-root",
+    "update":"npm run pull && npm install && npm run bower",
+    "copy-apache":"yes | cp -R -f dist/* ../../html/mutual/",
+    "deploy": "npm run update && grunt build && npm run copy-apache"
   },
   "repository": {
     "type": "git",
